@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { FaReply, FaRetweet, FaHeart, FaEllipsisH } from "react-icons/fa";
 import moment from "moment";
+import PropTypes from "prop-types";
 
 function Tweet({ tweet }) {
   return (
@@ -82,5 +83,7 @@ const testTweet = {
   retweets: 17,
   timestamp: "2016-07-30 21:24:37"
 };
+
+LikeButton.propTypes = { count: PropTypes.number };
 
 ReactDOM.render(<Tweet tweet={testTweet} />, document.querySelector("#root"));
