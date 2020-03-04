@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
 import "./index.css";
 import { FaReply, FaRetweet, FaHeart, FaEllipsisH } from "react-icons/fa";
 
-function Tweet() {
+function Tweet({ tweet }) {
   return (
     <div className="tweet">
-      <Avatar />
+      <Avatar hash={tweet.gravatar} />
       <div className="content">
-        <Author />
-        <Time />
-        <Message />
+        <Author author={tweet.author} />
+        <Time time={tweet.timestamp} />
+        <Message text={tweet.message} />
         <div className="buttons">
           <ReplyButton />
           <RetweetButton />
@@ -22,33 +22,40 @@ function Tweet() {
   );
 }
 
-function Avatar() {
-  return (
-    <img
-      src="https://www.gravatar.com/avatar/nothing"
-      className="avatar"
-      alt="avatar"
-    />
-  );
+function Avatar({ hash }) {
+  const url = `https://www.gravatar.com/avatar/${hash}`;
+  return <img src={url} className="avatar" alt="avatar" />;
 }
 
-function Message() {
-  return <div className="message">This is less than 140 characters.</div>;
+function Message({ text }) {
+  return <div className="message">{text}</div>;
 }
 
-function Author() {
+function Author({ author }) {
   return (
     <span className="author">
-      <span className="name">Your Name</span>
-      <span className="handle">@yourhandle</span>
+      <span className="name">{author.name}</span>
+      <span className="handle">@{author.handle}</span>
     </span>
   );
 }
 
-const Time = () => <span className="time">3h ago</span>;
+const Time = ({ time }) => <span className="time">{time}</span>;
 const ReplyButton = () => <FaReply className="reply-button" />;
 const RetweetButton = () => <FaRetweet className="retweet-button" />;
 const LikeButton = () => <FaHeart className="like-button" />;
 const MoreOptionsButton = () => <FaEllipsisH className="more-options-button" />;
 
-ReactDom.render(<Tweet />, document.getElementById("root"));
+const testTweet = {
+  message: "Something about cats.",
+  gravatar: "xyz",
+  author: {
+    handle: "catperson",
+    name: "IAMA Cat Person"
+  },
+  likes: 2,
+  retweets: 0,
+  timestamp: "2016-07-30 21:24:37"
+};
+
+ReactDOM.render(<Tweet tweet={testTweet} />, document.querySelector("#root"));
