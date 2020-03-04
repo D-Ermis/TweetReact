@@ -14,8 +14,8 @@ function Tweet({ tweet }) {
         <Message text={tweet.message} />
         <div className="buttons">
           <ReplyButton />
-          <RetweetButton />
-          <LikeButton />
+          <RetweetButton count={tweet.retweets} />
+          <LikeButton count={tweet.likes} />
           <MoreOptionsButton />
         </div>
       </div>
@@ -42,13 +42,33 @@ function Author({ author }) {
   );
 }
 
+function getRetweetCount(count) {
+  if (count > 0) {
+    return <span className="retweet-count">{count}</span>;
+  } else {
+    return null;
+  }
+}
+
 const Time = ({ time }) => {
   const timeString = moment(time).fromNow();
   return <span className="time">{timeString}</span>;
 };
 const ReplyButton = () => <FaReply className="reply-button" />;
-const RetweetButton = () => <FaRetweet className="retweet-button" />;
-const LikeButton = () => <FaHeart className="like-button" />;
+
+const RetweetButton = ({ count }) => (
+  <span className="retweet-button">
+    <FaRetweet />
+    {getRetweetCount(count)}
+  </span>
+);
+
+const LikeButton = ({ count }) => (
+  <span className="like-button">
+    <FaHeart />
+    {count > 0 && <span className="like-count">{count} </span>}
+  </span>
+);
 const MoreOptionsButton = () => <FaEllipsisH className="more-options-button" />;
 
 const testTweet = {
@@ -59,7 +79,7 @@ const testTweet = {
     name: "IAMA Cat Person"
   },
   likes: 2,
-  retweets: 0,
+  retweets: 17,
   timestamp: "2016-07-30 21:24:37"
 };
 
