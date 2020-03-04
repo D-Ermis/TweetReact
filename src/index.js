@@ -1,12 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDom from "react-dom";
+import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+function Tweet() {
+  return (
+    <div className="tweet">
+      <Avatar />
+      <div className="content">
+        <Author />
+        <Message />
+      </div>
+    </div>
+  );
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function Avatar() {
+  return (
+    <img
+      src="https://www.gravatar.com/avatar/nothing"
+      className="avatar"
+      alt="avatar"
+    />
+  );
+}
+
+function Message() {
+  return <div className="message">This is less than 140 characters.</div>;
+}
+function Author() {
+  return (
+    <span className="author">
+      <span className="name">Your Name</span>{" "}
+      <span className="handle">@yourhandle</span>
+    </span>
+  );
+}
+
+ReactDom.render(<Tweet />, document.getElementById("root"));
