@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { FaReply, FaRetweet, FaHeart, FaEllipsisH } from "react-icons/fa";
+import moment from "moment";
 
 function Tweet({ tweet }) {
   return (
@@ -32,15 +33,19 @@ function Message({ text }) {
 }
 
 function Author({ author }) {
+  const { name, handle } = author;
   return (
     <span className="author">
-      <span className="name">{author.name}</span>
-      <span className="handle">@{author.handle}</span>
+      <span className="name">{name}</span>
+      <span className="handle">@{handle}</span>
     </span>
   );
 }
 
-const Time = ({ time }) => <span className="time">{time}</span>;
+const Time = ({ time }) => {
+  const timeString = moment(time).fromNow();
+  return <span className="time">{timeString}</span>;
+};
 const ReplyButton = () => <FaReply className="reply-button" />;
 const RetweetButton = () => <FaRetweet className="retweet-button" />;
 const LikeButton = () => <FaHeart className="like-button" />;
